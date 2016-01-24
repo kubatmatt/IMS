@@ -10,16 +10,20 @@ import java.util.ArrayList;
 
 public class Item {
 	private String name;
-	private static ArrayList<Item> masterItemList;
-	private int itemID;
+	private static int itemID =0;
 	private String location;
 	private String description;
 	private int quantity;
 	private int quantityAllocated;
 	private int quantityBackordered;
-	private ArrayList<IncomingShipment> datesReceived;
+	private ArrayList<IncomingShipment> datesReceived = new ArrayList<>();
 	
+	public static ArrayList<Item> masterItemList = new ArrayList<>();
 	
+	public Item(){
+		itemID++;
+		masterItemList.add(this);
+	}
 	public Item(String name) {
 		this.name = name;
 	}
@@ -92,4 +96,7 @@ public class Item {
 		this.quantityBackordered = quantityBackordered;
 	}
 
+	public int getItemID(){
+		return itemID;
+	}
 }

@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import inventory.Item;;
 
 public class Example {
 
@@ -27,6 +28,15 @@ public class Example {
 		DateFormat format = new SimpleDateFormat("MM/dd/yy");
 		Date date = new Date();
 		System.out.println(format.format(date));
+		
+		Item item = new Item();
+		item.setName("DPH82");
+		item.setLocation("BIN10");
+		item.setQuantity(20);
+		
+		System.out.println(item.getItemID());
+		
+		Item item1 = new Item.masterItemList.get(0);
 	}
 
 }
