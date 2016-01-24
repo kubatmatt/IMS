@@ -1,53 +1,68 @@
 //// Implement Builder pattern or factory
 //// Need better constructors
 
-
 /// Past usage method
 package inventory;
 
 import java.util.ArrayList;
 
-
 public class Item {
+	//Required
+	private static int itemID = 0;
+	private int thisItemID = ++itemID;
+	public static ArrayList<Item> masterItemList = new ArrayList<>();
+	
 	private String name;
-	private static int itemID =0;
+	private int quantity;
+	//Not necessarily required
 	private String location;
 	private String description;
-	private int quantity;
 	private int quantityAllocated;
 	private int quantityBackordered;
 	private ArrayList<IncomingShipment> datesReceived = new ArrayList<>();
-	
-	public static ArrayList<Item> masterItemList = new ArrayList<>();
-	
-	public Item(){
-		itemID++;
+
+	public static class Builder{
+		private String name;
+		private int quantity;
+		
+		//optional
+		private String location="no location set";
+		private String description="no description";
+		
+		public Builder(String name, int quantity){
+			this.name=name;
+			this.quantity=quantity;
+		}
+		public Builder location(String value){
+			location=value;
+			return this;
+		}
+		public Builder description(String value){
+			description=value;
+			return this;
+		}
+		public Item build(){
+			return new Item(this);
+		}
+		
+	}private Item(Builder builder){
+		name=builder.name;
+		quantity=builder.quantity;
+		location=builder.location;
+		description=builder.description;
 		masterItemList.add(this);
-	}
-	public Item(String name) {
-		this.name = name;
+		
 	}
 
-	public Item(String name, String location) {
-		this.name = name;
-		this.location = location;
-	}
-
-	public Item(String name, String location, String description) {
-		this.name = name;
-		this.location = location;
-		this.description = description;
-	}
-	public void shipmentReceived(IncomingShipment in){
+	public void shipmentReceived(IncomingShipment in) {
 		datesReceived.add(in);
 	}
-	//Probably shouldn't be used
-	public void removeShipment(IncomingShipment in){
+
+	// Probably shouldn't be used
+	public void removeShipment(IncomingShipment in) {
 		datesReceived.remove(in);
 	}
-	
-	
-	
+
 	public String getName() {
 		return name;
 	}
@@ -96,7 +111,7 @@ public class Item {
 		this.quantityBackordered = quantityBackordered;
 	}
 
-	public int getItemID(){
-		return itemID;
+	public int getItemID() {
+		return thisItemID;
 	}
 }
